@@ -2,29 +2,33 @@
 <div id="header">
   <h1><a href="?page=home">SULE</a></h1>
 </div>
-<!--close-Header-part--> 
+<!--close-Header-part-->
 <?php
-    include "../koneksi/koneksi.php";
-    session_start();
-    $username = $_SESSION['username'];
-    $sql = "SELECT * FROM users INNER JOIN pegawai ON users.nip=pegawai.nip WHERE username = '$username' ORDER BY username ASC";
-    $tampil = mysqli_query($koneksi, $sql);
+include "../koneksi/koneksi.php";
+$username = $_SESSION['username'];
+$sql = "SELECT * FROM users INNER JOIN pegawai ON users.nip=pegawai.nip WHERE username = '$username' ORDER BY username ASC";
+$tampil = mysqli_query($koneksi, $sql);
 
-    $data = mysqli_fetch_array($tampil); 
-    $nama = $data['nama'];
-    $jk = $data['jk'];
-    if($data['nip'] == ''){
-      $nama_ = "Bpk ".ucfirst($_SESSION['username']);
-    }else{
-      $nama_ = ". ".$nama;
-    }
-    
+$data = mysqli_fetch_array($tampil);
+$nama = $data['nama'];
+$jk = $data['jk'];
+if ($data['nip'] == '') {
+  $nama_ = "Bpk " . ucfirst($_SESSION['username']);
+}
+else {
+  $nama_ = ". " . $nama;
+}
+
 ?>
 
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Selamat Datang <?php echo $jk.$nama_; ?> </span><b class="caret"></b></a>
+    <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown"
+        data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i> <span
+          class="text">Selamat Datang
+          <?php echo $jk . $nama_; ?>
+        </span><b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="?page=pfl"><i class="icon-user"></i> My Profile</a></li>
         <li class="divider"></li>
