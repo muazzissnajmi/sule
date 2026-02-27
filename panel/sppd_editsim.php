@@ -35,7 +35,7 @@ $berangkat_dari_3 = addslashes($_POST['berangkat_dari_3']);
 $ke_3 = addslashes($_POST['ke_3']);
 $pada_tgl_33 = addslashes($_POST['pada_tgl_33']);
 
-$transportasi = $_POST['transportasi'];
+$transportasi = isset($_POST['transportasi']) ? $_POST['transportasi'] : array();
 $ttd = addslashes($_POST['ttd']);
 
 $sql_cek = mysqli_query($koneksi, "select * from spd where no_spd = '$no_spd'");
@@ -52,11 +52,11 @@ $tanggal2 = new DateTime($tgl_kembali);
 $selisih = $tanggal1->diff($tanggal2)->format("%a");
 $selisih_tgl = $selisih +1;
 
-$id_pengikut = addcslashes($_POST['id_pengikut']);
-$pengikut = $_POST['pengikut'];
-$pengikut_ = $_POST['pengikut_'];
+$id_pengikut = isset($_POST['id_pengikut']) ? addslashes($_POST['id_pengikut']) : '';
+$pengikut = isset($_POST['pengikut']) ? $_POST['pengikut'] : array();
+$pengikut_ = isset($_POST['pengikut_']) ? $_POST['pengikut_'] : array();
 
-    $sql= mysqli_query($koneksi, "UPDATE spd SET no_spd = '$no_spd', keterangan_spd = '$keterangan', tahun_anggaran = '$tahun_anggaran', id_kota_tujuan = '$kota_tujuan', tgl_berangkat = '$tgl_berangkat', tgl_kembali = '$tgl_kembali', tgl_kembali_print = '$tgl_kembali_print', lama_perjalanan = '$selisih_tgl', tiba_di_1 = '$tiba_di_1', pada_tgl_1 = '$pada_tgl_1', berangkat_dari_1 = '$berangkat_dari_1', ke_1 = '$ke_1', pada_tgl_11 = '$pada_tgl_11', tiba_di_2 = '$tiba_di_2', pada_tgl_2 = '$pada_tgl_2', berangkat_dari_2 = '$berangkat_dari_2', ke_2 = '$ke_2', pada_tgl_22 = '$pada_tgl_22', tiba_di_3 = '$tiba_di_3', pada_tgl_3 = '$pada_tgl_3', berangkat_dari_3 = '$berangkat_dari_3', ke_3 = '$ke_3', pada_tgl_33 = '$pada_tgl_33', bulan = '$bulan', tahun = $tahun_bln, ttd = '$ttd' WHERE id_spd = '$id_spd'");
+    $sql_update = mysqli_query($koneksi, "UPDATE spd SET no_spd = '$no_spd', keterangan_spd = '$keterangan', tahun_anggaran = '$tahun_anggaran', id_kota_tujuan = '$kota_tujuan', tgl_berangkat = '$tgl_berangkat', tgl_kembali = '$tgl_kembali', tgl_kembali_print = '$tgl_kembali_print', lama_perjalanan = '$selisih_tgl', tiba_di_1 = '$tiba_di_1', pada_tgl_1 = '$pada_tgl_1', berangkat_dari_1 = '$berangkat_dari_1', ke_1 = '$ke_1', pada_tgl_11 = '$pada_tgl_11', tiba_di_2 = '$tiba_di_2', pada_tgl_2 = '$pada_tgl_2', berangkat_dari_2 = '$berangkat_dari_2', ke_2 = '$ke_2', pada_tgl_22 = '$pada_tgl_22', tiba_di_3 = '$tiba_di_3', pada_tgl_3 = '$pada_tgl_3', berangkat_dari_3 = '$berangkat_dari_3', ke_3 = '$ke_3', pada_tgl_33 = '$pada_tgl_33', bulan = '$bulan', tahun = $tahun_bln, ttd = '$ttd', mata_anggaran = '$mata_anggaran' WHERE id_spd = '$id_spd'");
 
 
 	foreach ($pengikut as $ikut) {
@@ -69,22 +69,20 @@ $pengikut_ = $_POST['pengikut_'];
       //$sql2= mysqli_query($koneksi, "UPDATE spd SET pengikut = '$ikut' WHERE id_pengikut = '$id_pengikut' ");    
     }
 
-  foreach ($pengikut_ as $ikut_) {  
-      echo $ikut_;
+  if (is_array($pengikut_)) {
+    foreach ($pengikut_ as $ikut_) {  
       //$sql2= mysqli_query($koneksi, "INSERT INTO pengikut VALUES ('','$id_spt','$ikut_')");    
     }
+  }
 
-     if ($transportasi == '') {
-
-	    }else{
-	    	$sql = mysqli_query($koneksi, "DELETE FROM spd_transportasi WHERE no_spd = '$id_spd'");
-	    		
-		}
-    
-   if ($sql){
-   		foreach ($transportasi as $transport) {					
-		    $sql2= mysqli_query($koneksi, "INSERT INTO spd_transportasi VALUES (NULL,'$id_spd','$transport')");
+     if (!empty($transportasi) && is_array($transportasi)) {
+    	    mysqli_query($koneksi, "DELETE FROM spd_transportasi WHERE no_spd = '$id_spd'");
+    		foreach ($transportasi as $transport) {				
+		    mysqli_query($koneksi, "INSERT INTO spd_transportasi VALUES (NULL,'$id_spd','$transport')");
    		}
+	}
+
+   if ($sql_update){
    		echo "<script type='text/javascript'> document.location = '?page=spe&id=$id_spd&msg=1'; </script>";
 	}else{    	
     	echo "<script type='text/javascript'> document.location = '?page=spe&id=$id_spd&msg=2'; </script>";

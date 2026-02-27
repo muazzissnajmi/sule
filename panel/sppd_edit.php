@@ -72,6 +72,24 @@ $ke_3 = $data['ke_3'];
         <form class="form-horizontal" method="post" action="?page=spes" name="" enctype="multipart/form-data">
         <div class="widget-content nopadding form-horizontal">            
             <input type="hidden" class="span11" name="id_spd" placeholder="Nomor SPPD" value="<?php echo $id_spd; ?>" />
+            <input type="hidden" name="no_spd" value="<?php echo $data['no_spd']; ?>" />
+            <input type="hidden" name="id_spt" value="<?php echo $data['id_spt']; ?>" />
+            <input type="hidden" name="no_spt" value="<?php echo $data['no_spt']; ?>" />
+            <input type="hidden" name="tgl_spd" value="<?php echo $data['tgl_spd']; ?>" />
+            <input type="hidden" name="tiba_di_1" value="<?php echo $data['tiba_di_1']; ?>" />
+            <input type="hidden" name="pada_tgl_1" value="<?php echo $data['pada_tgl_1']; ?>" />
+            <input type="hidden" name="berangkat_dari_1" value="<?php echo $data['berangkat_dari_1']; ?>" />
+            <input type="hidden" name="ke_1" value="<?php echo $data['ke_1']; ?>" />
+            <input type="hidden" name="pada_tgl_11" value="<?php echo $data['pada_tgl_11']; ?>" />
+            <input type="hidden" name="pada_tgl_2" value="<?php echo $data['pada_tgl_2']; ?>" />
+            <input type="hidden" name="berangkat_dari_2" value="<?php echo $data['berangkat_dari_2']; ?>" />
+            <input type="hidden" name="ke_2" value="<?php echo $data['ke_2']; ?>" />
+            <input type="hidden" name="pada_tgl_22" value="<?php echo $data['pada_tgl_22']; ?>" />
+            <input type="hidden" name="pada_tgl_3" value="<?php echo $data['pada_tgl_3']; ?>" />
+            <input type="hidden" name="berangkat_dari_3" value="<?php echo $data['berangkat_dari_3']; ?>" />
+            <input type="hidden" name="ke_3" value="<?php echo $data['ke_3']; ?>" />
+            <input type="hidden" name="pada_tgl_33" value="<?php echo $data['pada_tgl_33']; ?>" />
+            <input type="hidden" name="id_pengikut" value="<?php echo $data['id_pengikut'] ?? ''; ?>" />
             <!--<div class="control-group">
               <label class="control-label">Nomor SPPD :</label>
               <div class="controls">
@@ -138,6 +156,7 @@ $ke_3 = $data['ke_3'];
                 ?>
 
                 <input type="hidden" name="pengikut[]" value="<?php echo $data2_['nip']; ?>">
+                <input type="hidden" name="pengikut_[]" value="<?php echo $data2_['nip']; ?>">
 
               <?php }?>
               </div>
@@ -182,6 +201,8 @@ $ke_3 = $data['ke_3'];
                   <option <?php if($data['tahun_anggaran'] == '2022') echo "selected" ?>>2022</option>
                   <option <?php if($data['tahun_anggaran'] == '2023') echo "selected" ?>>2023</option>
                   <option <?php if($data['tahun_anggaran'] == '2024') echo "selected" ?>>2024</option>
+                  <option <?php if($data['tahun_anggaran'] == '2025') echo "selected" ?>>2025</option>
+                  <option <?php if($data['tahun_anggaran'] == '2026') echo "selected" ?>>2026</option>
                 </select>
               </div>
             </div>            
